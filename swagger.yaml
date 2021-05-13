@@ -7,14 +7,54 @@ info:
 servers:
   - description: Development
     url: http://localhost:3000
-  - description: Production
-    url: https://challenge-accounts.aws.net
 
 tags:
   - name: Accounts
   - name: People
 
 paths:
+  /people:
+    get:
+      tags:
+        - People
+      summary: List all People
+      description: Returns a list of all Natural Persons (an empty list if no Person is found).
+      responses:
+        200:
+          description: People found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NaturalPerson'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        500:
+          $ref: "#/components/responses/InternalServerError"
+    post:
+      tags:
+        - People
+      summary: Create a Natural Person
+      description: Create a Natural Person
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NaturalPersonCreate'
+      responses:
+        201:
+          description: Natural Person created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NaturalPerson'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        409:
+          $ref: '#/components/responses/NaturalPersonAlreadyExists'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /accounts:
     get:
       tags:
@@ -284,49 +324,6 @@ paths:
           $ref: '#/components/responses/BadRequest'
         404:
           $ref: '#/components/responses/AccountNotFound'
-        500:
-          $ref: '#/components/responses/InternalServerError'
-
-  /people:
-    get:
-      tags:
-        - People
-      summary: List all People
-      description: Returns a list of all Natural Persons (an empty list if no Person is found).
-      responses:
-        200:
-          description: People found
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/NaturalPerson'
-        400:
-          $ref: '#/components/responses/BadRequest'
-        500:
-          $ref: "#/components/responses/InternalServerError"
-    post:
-      tags:
-        - People
-      summary: Create a Natural Person
-      description: Create a Natural Person
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NaturalPersonCreate'
-      responses:
-        201:
-          description: Natural Person created successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NaturalPerson'
-        400:
-          $ref: '#/components/responses/BadRequest'
-        409:
-          $ref: '#/components/responses/NaturalPersonAlreadyExists'
         500:
           $ref: '#/components/responses/InternalServerError'
 
