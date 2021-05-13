@@ -499,7 +499,7 @@ components:
             dataNascimento:
               type: string
               description: Date of brith of a Natural Person
-              example: 1987-10-13
+              example: "1987-10-13"
               format: date
     NaturalPersonCreate:
       description: Data required do create a Natural Person
@@ -520,7 +520,7 @@ components:
         dataNascimento:
           type: string
           description: Date of brith of a Natural Person
-          example: 1987-10-13
+          example: "1987-10-13"
           format: date
     ErrorResponse:
       description: Default error response of a request
